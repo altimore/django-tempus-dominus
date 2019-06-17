@@ -1,13 +1,13 @@
-from datetime import datetime
 import json
+from datetime import datetime
 
 from django import forms
-from django.utils.safestring import mark_safe
-from django.utils.encoding import force_text
-from django.utils.formats import get_format
-from django.utils.translation import get_language
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.utils.encoding import force_text
+from django.utils.formats import get_format
+from django.utils.safestring import mark_safe
+from django.utils.translation import get_language
 
 
 def cdn_media():
@@ -115,8 +115,8 @@ class TempusDominusMixin:
         options.update(self.js_options)
 
         if (
-            getattr(settings, "TEMPUS_DOMINUS_LOCALIZE", False) and
-            "locale" not in self.js_options
+            getattr(settings, "TEMPUS_DOMINUS_LOCALIZE", False)
+            and "locale" not in self.js_options
         ):
             options["locale"] = get_language()
 
@@ -124,6 +124,8 @@ class TempusDominusMixin:
             # Append an option to set the datepicker's value using a Javascript
             # moment object
             options.update(self.moment_option(value))
+
+        inline_js = getattr(settings, "TEMPUS_DOMINUS_INLINE_JS", True)
 
         field_html = render_to_string(
             "tempus_dominus/widget.html",
@@ -139,6 +141,7 @@ class TempusDominusMixin:
                 "input_toggle": input_toggle,
                 "input_group": input_group,
                 "size": size,
+                "inline_js": inline_js,
             },
         )
         return mark_safe(force_text(field_html))

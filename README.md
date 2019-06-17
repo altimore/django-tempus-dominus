@@ -14,6 +14,22 @@ The following settings are available:
 
 * `TEMPUS_DOMINUS_LOCALIZE` (default: `False`): if `True`, widgets will be translated to the selected browser language and use the localized date and time formats.
 * `TEMPUS_DOMINUS_INCLUDE_ASSETS` (default: `True`): if `True`, loads Tempus Dominus and `moment` JS and CSS from Cloudflare's CDN, otherwise loading the JS and CSS are up to you.
+* `TEMPUS_DOMINUS_INLINE_JS` (default: `True`): if `True`, loads Tempus Dominus inline in the webpage, if not you need to implement the js yourself.
+
+Basic example :
+```JavaScript
+import "tempusdominus-bootstrap-4";
+
+$('.tempusdominus')
+  .each(function(e) {
+    var options = $(this)
+      .data("options");
+    $(this)
+      .datetimepicker(
+        options
+      );
+  });
+```
 
 Three widgets are provided:
 
@@ -91,7 +107,7 @@ Then in your template, include jQuery, `{{ form.media }}`, and render the form:
     {# Django Tempus Dominus assets are included in `{{ form.media }}` #}
     {{ form.media }}
   </head>
-  
+
   <body>
     <div class="container">
       <div class="row">
